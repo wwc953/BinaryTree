@@ -1,9 +1,10 @@
 package com.binarytree;
 
+
 /**
  * Created by Roll on 2017/10/11.
  * <p>
- * 节点
+ * 节点类
  */
 public class Node {
 

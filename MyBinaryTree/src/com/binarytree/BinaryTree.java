@@ -7,7 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * 二叉树
  * <p>
- * 实现二叉树的添加，删除，查找，遍历，最小/大值
+ * 实现二叉树的添加，删除，查找，最小/大值，遍历（递归、非递归）
  * <p>
  * Created by Roll on 2017/10/11.
  */
@@ -46,9 +46,7 @@ public class BinaryTree {
                         return;
                     }
                 }
-
-            }//end循环
-
+            }//end while
         }
     }
 
@@ -67,9 +65,7 @@ public class BinaryTree {
             if (current == null)
                 return null;
         }
-
         return current;
-
     }
 
     // 获取根节点
@@ -113,11 +109,11 @@ public class BinaryTree {
      * 4.若该结点的左子树为非空，则将该结点的左子树入队列；
      * 5.若该结点的右子树为非空，则将该结点的右子树入队列；
      *
-     * @param root
+     * @param node
      */
-    public void levelOrder(Node root) {
+    public void levelOrder(Node node) {
         //树为空
-        if (root == null)
+        if (node == null)
             return;
         /**
          *
@@ -130,16 +126,16 @@ public class BinaryTree {
          *
          */
         Queue<Node> queue = new LinkedBlockingQueue<Node>();
-        queue.offer(root);//root入队
+        queue.offer(node);//node入队
 
         while (!queue.isEmpty()) {
-            Node pollNode = queue.poll();//出队一个节点，访问该节点的左右子树
-            System.out.print(pollNode.data + " ");
+            node = queue.poll();//出队一个节点，访问该节点的左右子树
+            System.out.print(node.data + " ");
 
-            if (pollNode.left != null)
-                queue.offer(pollNode.left);//左子树入队
-            if (pollNode.right != null)
-                queue.offer(pollNode.right);//右子树入队
+            if (node.left != null)
+                queue.offer(node.left);//左子树入队
+            if (node.right != null)
+                queue.offer(node.right);//右子树入队
         }
     }
 
@@ -152,7 +148,6 @@ public class BinaryTree {
             minNode = current;
             current = current.left;
         }
-
         return minNode;
     }
 
@@ -165,7 +160,6 @@ public class BinaryTree {
             maxNode = current;
             current = current.right;
         }
-
         return maxNode;
     }
 
@@ -195,7 +189,6 @@ public class BinaryTree {
             if (current == null)
                 return false;
         }
-
 
         // 情况一：删除的节点为 叶子节点
         if (current.left == null && current.right == null) {
@@ -241,7 +234,6 @@ public class BinaryTree {
             successor.left = current.left;
 
         }
-
         return true;
     }
 
@@ -255,7 +247,6 @@ public class BinaryTree {
             //保存后继以及其父节点
             successorParent = successor;
             successor = current;
-
             current = current.left;
         }
 
@@ -265,7 +256,6 @@ public class BinaryTree {
             // 删除节点的右子节点 给 后继节点的右子节点
             successor.right = delNode.right;
         }
-
         return successor;
     }
 
@@ -293,7 +283,10 @@ public class BinaryTree {
 
     }
 
-    //中序遍历--非递归
+    /**
+     * 中序遍历--非递归
+     * @param node
+     */
     public void inOrder2(Node node) {
         Stack<Node> stack = new Stack<Node>();
 
@@ -308,12 +301,12 @@ public class BinaryTree {
                 node = node.right;//获取该节点的右子树,入栈
             }
         }
-
     }
 
-    //后序遍历--非递归
 
     /**
+     * 后序遍历--非递归
+     *
      * 1、对于任一结点P，将其入栈，然后沿其左子树一直往下搜索，直到搜索到没有左孩子的结点。
      * <p>
      * 2、根据栈顶节点，找到其右孩子temp，判断temp:
@@ -346,7 +339,6 @@ public class BinaryTree {
                     node = temp;//将右子节点赋给node，重复之前操作
                 }
             }
-
         }//end while
     }
 
