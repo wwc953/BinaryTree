@@ -139,6 +139,45 @@ public class BinaryTree {
         }
     }
 
+    /**
+     * 树的深度
+     * <p>
+     * 求左右子树的深度，取二者较大者加1
+     *
+     * @param node
+     * @return
+     */
+    public int treeDeep(Node node) {
+        if (node != null) {
+            int leftdeep = treeDeep(node.left);
+            int rightdeep = treeDeep(node.right);
+
+            if (leftdeep >= rightdeep)
+                return leftdeep + 1;
+            else
+                return rightdeep + 1;
+        }
+        return 0;
+    }
+
+
+    /**
+     * 叶子节点的个数
+     *
+     * @param node
+     * @return
+     */
+    public int nodeNumber(Node node) {
+
+        if (node != null) {
+            if (node.left == null && node.right == null)
+                return 1;
+            else
+                return nodeNumber(node.left) + nodeNumber(node.right);
+        }
+        return 0;
+    }
+
     // 获取最小节点---遍历左子树
     public Node getMinNode() {
         Node current = root;
@@ -238,7 +277,7 @@ public class BinaryTree {
     }
 
     // 查找 后继节点
-    public Node findSuccessor(Node delNode) {
+    private Node findSuccessor(Node delNode) {
         Node successorParent = delNode;// 后继节点的父节点
         Node successor = delNode;// 后继节点
         Node current = delNode.right;// 右节点
@@ -285,6 +324,7 @@ public class BinaryTree {
 
     /**
      * 中序遍历--非递归
+     *
      * @param node
      */
     public void inOrder2(Node node) {
@@ -306,12 +346,12 @@ public class BinaryTree {
 
     /**
      * 后序遍历--非递归
-     *
+     * <p>
      * 1、对于任一结点P，将其入栈，然后沿其左子树一直往下搜索，直到搜索到没有左孩子的结点。
      * <p>
      * 2、根据栈顶节点，找到其右孩子temp，判断temp:
-     *      若temp为空，或者已经输出。则出栈，输出节点数据，用pre记录该节点信息。
-     *      若temp不为空，或未输出。则重复步骤一。
+     * 若temp为空，或者已经输出。则出栈，输出节点数据，用pre记录该节点信息。
+     * 若temp不为空，或未输出。则重复步骤一。
      *
      * @param node
      */
