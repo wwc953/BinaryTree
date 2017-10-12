@@ -11,8 +11,51 @@ public class Test {
 
         initTree(tree);
 
+        order(tree);
+        System.out.println();
+
+        order2(tree);
+
+        // --------------------------------------------
+        System.out.println("最小值：" + tree.getMinNode().data);
+        System.out.println("最大值：" + tree.getMaxNode().data);
+
+        // --------------验证后继节点--------------------
+        int number = 45;
+        Node node = tree.findSuccessor(tree.findNode(number));
+        System.out.println(number+"的后继节点是:" + node.data);
+
+
+    }
+
+    /**
+     * 非递归遍历
+     * @param tree
+     */
+    public static void order2(BinaryTree tree){
+
+        System.out.print("前序非递：");
+        tree.preOrder2(tree.getRoot());
+        System.out.println();
+
+        System.out.print("中序非递：");
+        tree.inOrder2(tree.getRoot());
+        System.out.println();
+
+        System.out.print("后序非递：");
+        tree.postOrder2(tree.getRoot());
+        System.out.println();
+    }
+
+    /**
+     * 递归遍历
+     * @param tree
+     */
+    public static void order(BinaryTree tree){
+
         System.out.print("层次遍历：");
         tree.levelOrder(tree.getRoot());
+        System.out.println();
         System.out.println();
 
         System.out.print("前序遍历：");
@@ -26,17 +69,6 @@ public class Test {
         System.out.print("后序遍历：");
         tree.postOrder(tree.getRoot());
         System.out.println();
-
-        // --------------------------------------------
-        System.out.println("最小值：" + tree.getMinNode().data);
-        System.out.println("最大值：" + tree.getMaxNode().data);
-
-        // --------------验证后继节点--------------------
-        int number = 45;
-        Node node = tree.findSuccessor(tree.findNode(number));
-        System.out.println(number+"的后继节点是:" + node.data);
-
-
     }
 
     /**

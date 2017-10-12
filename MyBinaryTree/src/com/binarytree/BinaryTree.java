@@ -1,15 +1,15 @@
 package com.binarytree;
 
 import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 二叉树
- *
+ * <p>
  * 实现二叉树的添加，删除，查找，遍历，最小/大值
- *
+ * <p>
  * Created by Roll on 2017/10/11.
- *
  */
 public class BinaryTree {
 
@@ -18,23 +18,19 @@ public class BinaryTree {
 
     // 添加节点
     public void add(int data) {
-
         Node newNode = new Node(data);
 
         if (root == null) {//root为空，新建的节点为根节点
             root = newNode;
         } else {
-
             Node current = root;
             Node parent;
 
             while (true) {
-
                 parent = current;
 
                 // 小值,向左放
                 if (data < current.data) {
-
                     current = current.left;
 
                     if (current == null) {
@@ -43,7 +39,6 @@ public class BinaryTree {
                     }
 
                 } else {// 大值，向右放
-
                     current = current.right;
 
                     if (current == null) {
@@ -52,7 +47,7 @@ public class BinaryTree {
                     }
                 }
 
-            }
+            }//end循环
 
         }
     }
@@ -62,7 +57,6 @@ public class BinaryTree {
         Node current = root;
 
         while (current.data != data) {
-
             //data小于当前节点的值，往左子树查询
             if (data < current.data)
                 current = current.left;
@@ -110,22 +104,21 @@ public class BinaryTree {
         }
     }
 
-    // 层次遍历,Queue实现
     /**
-     *  1.首先将根节点放入队列中。
-     *  2.当队列为非空时，循环执行步骤3到步骤5，否则执行6；
-     *  3.出队列取得一个结点，访问该结点；
-     *  4.若该结点的左子树为非空，则将该结点的左子树入队列；
-     *  5.若该结点的右子树为非空，则将该结点的右子树入队列；
-     *  6.结束。
+     * 层次遍历,Queue实现
+     * <p>
+     * 1.首先将根节点放入队列中。
+     * 2.当队列为非空时，循环执行步骤3到步骤5，否则结束；
+     * 3.出队列取得一个结点，访问该结点；
+     * 4.若该结点的左子树为非空，则将该结点的左子树入队列；
+     * 5.若该结点的右子树为非空，则将该结点的右子树入队列；
+     *
      * @param root
      */
     public void levelOrder(Node root) {
-
         //树为空
         if (root == null)
             return;
-
         /**
          *
          * 线程不安全
@@ -137,22 +130,17 @@ public class BinaryTree {
          *
          */
         Queue<Node> queue = new LinkedBlockingQueue<Node>();
-
         queue.offer(root);//root入队
 
         while (!queue.isEmpty()) {
-
             Node pollNode = queue.poll();//出队一个节点，访问该节点的左右子树
-
-            System.out.print(pollNode.data+" ");
+            System.out.print(pollNode.data + " ");
 
             if (pollNode.left != null)
                 queue.offer(pollNode.left);//左子树入队
             if (pollNode.right != null)
                 queue.offer(pollNode.right);//右子树入队
-
         }
-
     }
 
     // 获取最小节点---遍历左子树
@@ -177,19 +165,22 @@ public class BinaryTree {
             maxNode = current;
             current = current.right;
         }
+
         return maxNode;
     }
 
-    // 删除一个节点
+    /**
+     * 删除节点
+     * <p>
+     * 要删除的节点有三种情况：叶节点、有一个节子点、有两个子节点
+     */
     public boolean delete(int data) {
-
         Node current = root;// 当前节点
         Node parent = root;// 父节点
         boolean isLeft = true;// 该节点是父节点的左子树
 
         // while循环，找到要删除的节点current
         while (current.data != data) {
-
             parent = current;
 
             // data小于当current的data，说明该data在current的左子树
@@ -205,9 +196,6 @@ public class BinaryTree {
                 return false;
         }
 
-        /**
-         * 要删除的节点有三种情况：叶节点、有一个节子点、有两个子节点
-         */
 
         // 情况一：删除的节点为 叶子节点
         if (current.left == null && current.right == null) {
@@ -216,7 +204,7 @@ public class BinaryTree {
                 root = null;
 
             if (isLeft)
-                parent.left = null;
+                parent.left = null;//该节点为父节点的左节点，设父节点的左节点为null
             else
                 parent.right = null;
 
@@ -241,7 +229,6 @@ public class BinaryTree {
         } else {// 情况三：节点有两个子节点
 
             // 先找到该节点的后继节点。该节点的右子节点的左子节点，左子节点的左子节点.....
-
             Node successor = findSuccessor(current);
 
             if (current == root)
@@ -260,15 +247,15 @@ public class BinaryTree {
 
     // 查找 后继节点
     public Node findSuccessor(Node delNode) {
-
         Node successorParent = delNode;// 后继节点的父节点
         Node successor = delNode;// 后继节点
-
         Node current = delNode.right;// 右节点
 
         while (current != null) {
+            //保存后继以及其父节点
             successorParent = successor;
             successor = current;
+
             current = current.left;
         }
 
@@ -281,5 +268,87 @@ public class BinaryTree {
 
         return successor;
     }
+
+
+    //前序遍历--非递归
+    public void preOrder2(Node node) {
+        //根节点不为空
+        if (node == null)
+            return;
+
+        Stack<Node> stack = new Stack<Node>();
+        //根节点入栈
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            node = stack.pop();
+            System.out.print(node.data + " ");
+
+            //右节点先入栈，左节点再入栈。
+            if (node.right != null)
+                stack.push(node.right);
+            if (node.left != null)
+                stack.push(node.left);
+        }
+
+    }
+
+    //中序遍历--非递归
+    public void inOrder2(Node node) {
+        Stack<Node> stack = new Stack<Node>();
+
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {// 将全部的左子树压入占中
+                stack.push(node);
+                node = node.left;
+            } else {
+                // 到这说明左子树已经遍历完
+                node = stack.pop();//弹出节点
+                System.out.print(node.data + " ");
+                node = node.right;//获取该节点的右子树,入栈
+            }
+        }
+
+    }
+
+    //后序遍历--非递归
+
+    /**
+     * 1、对于任一结点P，将其入栈，然后沿其左子树一直往下搜索，直到搜索到没有左孩子的结点。
+     * <p>
+     * 2、根据栈顶节点，找到其右孩子temp，判断temp:
+     *      若temp为空，或者已经输出。则出栈，输出节点数据，用pre记录该节点信息。
+     *      若temp不为空，或未输出。则重复步骤一。
+     *
+     * @param node
+     */
+
+    public void postOrder2(Node node) {
+        Stack<Node> stack = new Stack<Node>();
+        Node pre = node;//保存已输出过的node节点
+
+        while (node != null || !stack.isEmpty()) {
+            //左子树入栈
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+
+            if (!stack.isEmpty()) {
+                Node temp = stack.peek().right;//获取栈顶节点的右子树
+                //右孩子为空，或右孩子已经输出
+                if (temp == null || temp == pre) {
+                    node = stack.pop();//出栈
+                    System.out.print(node.data + " ");
+                    pre = node;//将当前node标记已输出
+                    node = null;
+                } else {
+                    node = temp;//将右子节点赋给node，重复之前操作
+                }
+            }
+
+        }//end while
+    }
+
 
 }

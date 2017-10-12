@@ -8,7 +8,7 @@ package com.binarytree;
 public class Node {
 
     public Node left = null;//左孩子
-    public int data;//数据域
+    public int data;        //数据域
     public Node right = null;//右孩子
 
     public Node(int data) {
