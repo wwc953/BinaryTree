@@ -9,7 +9,10 @@ public class Test {
 
         BinaryTree tree = new BinaryTree();
 
-        initTree(tree);
+        int[] array = {24, 45, 70, 95, 25, 14, 23, 13, 38, 50, 59, 96};
+//        int[] array = { 12, 76, 35, 22, 16, 48, 90, 46, 9, 40 };
+        for (int i = 0; i < array.length; i++)
+            tree.add(array[i]);
 
         System.out.println("树的深度是：" + tree.treeDeep(tree.getRoot()));
         System.out.println("叶子节点有：" + tree.nodeNumber(tree.getRoot()));
@@ -70,23 +73,4 @@ public class Test {
         System.out.println();
     }
 
-    /**
-     * 初始化二叉树
-     *
-     * @param tree
-     */
-    public static void initTree(BinaryTree tree) {
-        tree.add(24);
-        tree.add(14);
-        tree.add(45);
-        tree.add(13);
-        tree.add(23);
-        tree.add(25);
-        tree.add(70);
-        tree.add(38);
-        tree.add(50);
-        tree.add(95);
-        tree.add(59);
-        tree.add(96);
-    }
 }

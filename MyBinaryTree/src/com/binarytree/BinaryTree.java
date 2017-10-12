@@ -16,7 +16,10 @@ public class BinaryTree {
     // 根节点
     private Node root;
 
-    // 添加节点
+    /**
+     * 添加节点
+     * @param data
+     */
     public void add(int data) {
         Node newNode = new Node(data);
 
@@ -32,15 +35,12 @@ public class BinaryTree {
                 // 小值,向左放
                 if (data < current.data) {
                     current = current.left;
-
                     if (current == null) {
                         parent.left = newNode;
                         return;
                     }
-
                 } else {// 大值，向右放
                     current = current.right;
-
                     if (current == null) {
                         parent.right = newNode;
                         return;
@@ -50,7 +50,11 @@ public class BinaryTree {
         }
     }
 
-    // 查找节点
+    /**
+     * 查找节点
+     * @param data
+     * @return
+     */
     public Node findNode(int data) {
         Node current = root;
 
@@ -68,12 +72,18 @@ public class BinaryTree {
         return current;
     }
 
-    // 获取根节点
+    /**
+     * 获取根节点
+     * @return
+     */
     public Node getRoot() {
         return root;
     }
 
-    // 前序遍历
+    /**
+     * 前序遍历
+     * @param node
+     */
     public void preOrder(Node node) {
         if (node != null) {
             System.out.print(node.data + " ");
@@ -82,7 +92,10 @@ public class BinaryTree {
         }
     }
 
-    // 中序遍历
+    /**
+     * 中序遍历
+     * @param node
+     */
     public void inOrder(Node node) {
         if (node != null) {
             inOrder(node.left);
@@ -91,7 +104,10 @@ public class BinaryTree {
         }
     }
 
-    // 后序遍历
+    /**
+     * 后序遍历
+     * @param node
+     */
     public void postOrder(Node node) {
         if (node != null) {
             postOrder(node.left);
@@ -145,7 +161,7 @@ public class BinaryTree {
      * 求左右子树的深度，取二者较大者加1
      *
      * @param node
-     * @return
+     * @return 节点为空，返回0
      */
     public int treeDeep(Node node) {
         if (node != null) {
@@ -160,15 +176,13 @@ public class BinaryTree {
         return 0;
     }
 
-
     /**
      * 叶子节点的个数
      *
      * @param node
-     * @return
+     * @return 节点为空，返回0
      */
     public int nodeNumber(Node node) {
-
         if (node != null) {
             if (node.left == null && node.right == null)
                 return 1;
@@ -178,7 +192,10 @@ public class BinaryTree {
         return 0;
     }
 
-    // 获取最小节点---遍历左子树
+    /**
+     * 获取最小节点---遍历左子树
+     * @return
+     */
     public Node getMinNode() {
         Node current = root;
         Node minNode = null;
@@ -190,7 +207,10 @@ public class BinaryTree {
         return minNode;
     }
 
-    // 获取最大节点---遍历右子树
+    /**
+     * 获取最大节点---遍历右子树
+     * @return
+     */
     public Node getMaxNode() {
         Node current = root;
         Node maxNode = null;
@@ -276,7 +296,11 @@ public class BinaryTree {
         return true;
     }
 
-    // 查找 后继节点
+    /**
+     * 查找 后继节点
+     * @param delNode
+     * @return
+     */
     private Node findSuccessor(Node delNode) {
         Node successorParent = delNode;// 后继节点的父节点
         Node successor = delNode;// 后继节点
@@ -298,8 +322,10 @@ public class BinaryTree {
         return successor;
     }
 
-
-    //前序遍历--非递归
+    /**
+     * 前序遍历--非递归
+     * @param node
+     */
     public void preOrder2(Node node) {
         //根节点不为空
         if (node == null)
@@ -319,7 +345,6 @@ public class BinaryTree {
             if (node.left != null)
                 stack.push(node.left);
         }
-
     }
 
     /**
@@ -355,7 +380,6 @@ public class BinaryTree {
      *
      * @param node
      */
-
     public void postOrder2(Node node) {
         Stack<Node> stack = new Stack<Node>();
         Node pre = node;//保存已输出过的node节点
