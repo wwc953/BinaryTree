@@ -251,7 +251,7 @@ public class BinaryTree {
 
         // 情况一：删除的节点为 叶子节点
         if (current.left == null && current.right == null) {
-            // 节点为根节点
+            // 如果节点为根节点
             if (current == root)
                 root = null;
 
@@ -327,7 +327,7 @@ public class BinaryTree {
      * @param node
      */
     public void preOrder2(Node node) {
-        //根节点不为空
+        //根节点为空
         if (node == null)
             return;
 
@@ -356,14 +356,14 @@ public class BinaryTree {
         Stack<Node> stack = new Stack<Node>();
 
         while (node != null || !stack.isEmpty()) {
-            if (node != null) {// 将全部的左子树压入占中
+            if (node != null) {// 将全部的左子树压入栈中
                 stack.push(node);
                 node = node.left;
             } else {
                 // 到这说明左子树已经遍历完
                 node = stack.pop();//弹出节点
                 System.out.print(node.data + " ");
-                node = node.right;//获取该节点的右子树,入栈
+                node = node.right;//获取该节点的右子树,开始新的一轮左子树遍历
             }
         }
     }
@@ -375,8 +375,8 @@ public class BinaryTree {
      * 1、对于任一结点P，将其入栈，然后沿其左子树一直往下搜索，直到搜索到没有左孩子的结点。
      * <p>
      * 2、根据栈顶节点，找到其右孩子temp，判断temp:
-     * 若temp为空，或者已经输出。则出栈，输出节点数据，用pre记录该节点信息。
-     * 若temp不为空，或未输出。则重复步骤一。
+     *      若temp为空，或者已经输出过。则出栈，输出节点数据，用pre记录该节点信息。
+     *      若temp不为空，或未输出过。则重复步骤一。
      *
      * @param node
      */
