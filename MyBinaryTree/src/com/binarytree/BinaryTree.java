@@ -323,6 +323,15 @@ public class BinaryTree {
     }
 
     /**
+     *   Vector与ArrayList的区别：
+            - Vector线程安全，ArrayList线程不安全。
+            - ArrayList不可以设置扩展的容量，默认1.5倍；Vector可以设置扩展的容量，如果没有设置，默认2倍
+            - ArrayList的无参构造方法中初始容量为0，第一次扩容数量为10；而Vector的无参构造方法中初始容量为10。
+
+     */
+
+
+    /**
      * 前序遍历--非递归
      * @param node
      */
