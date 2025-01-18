@@ -12,3 +12,5 @@ BinaryTree
 如下图所示，45的后继节点是50
 
 ![](MyBinaryTree/pic/BinaryTree_delete.jpg)
+
+
